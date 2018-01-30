@@ -1,0 +1,28 @@
+# add your own paths in the pathArray
+pathArray=(
+/usr/local/sbin
+/usr/local/mysql/bin
+/usr/local/opt/php56/bin
+~/gitlab/libphutil/bin/
+/opt/metasploit-framework/bin
+~/mybin
+~/gitlab/git-extra-commands/bin
+/usr/local/opt/icu4c/bin
+/Users/j/.local/bin
+/Applications/DevDesktop/tools
+)
+
+pythonPathArray=(
+/Library/Frameworks/Python.framework/Versions/2.7/bin
+/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages
+/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python
+)
+
+myPath=$PATH
+for item in ${pathArray[*]}; do myPath=$myPath:$item; done
+export PATH=$myPath
+
+myPythonPath=$PYTHONPATH
+for item in ${pythonPathArray[*]}; do myPythonPath=$myPythonPath:$item; done
+export PYTHONPATH=$myPythonPath
+for f in `find ~/.bashFiles -maxdepth 1 -type f -name "\.*\.bash"`; do source $f; done
