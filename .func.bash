@@ -62,3 +62,51 @@ mgif() {
 mjpeg() {
     mv "$1"{.,}
 }
+
+
+addThisPathToAlias() {
+  p="`pwd`"
+  echo -n "please set an alias name:"
+  read al
+  er="$(grep -Hn "alias $al=" ~/.bashFiles/.*.bash)"
+  if [ -z "$er" ]
+  then
+    echo "Adding alias:"
+    alString="alias $al='cd $p'"
+    echo $alString
+    echo -n "File name:"
+    read f
+    file=~/.bashFiles/.$f.bash
+      if [ -f $file ]
+      then
+        echo $alString >> $file
+            if [ $? -eq "0" ]
+            then
+              echo "alias added!"
+              reload
+              echo "reloaded!"
+            else
+              echo "could not add alias!"
+            fi
+      else
+        echo "File:$file not found!"
+        echo "Creating file:$file"
+        touch $file
+            if [ $? -eq "0" ]
+            then
+              echo $alString >> $file
+                  if [ $? -eq "0" ]
+                  then
+                    echo "alias added!"
+                    reload
+                    echo "reloaded!"
+                  else
+                    echo "could not add alias!"
+                  fi
+            fi
+      fi
+  else
+    echo $er
+    echo "alias exist!! supply a new one"
+  fi
+}
